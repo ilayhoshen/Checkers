@@ -8,6 +8,7 @@ namespace Checkers.AI
     {
         public Color Color { get; set; }
         public EvaluationFunction Evaluation { get; set; }
+        private int m_LevelOfDeepness = 2;
         private Random m_Random = new Random();
         public AIPlayer(Color color, EvaluationFunction evaluation)
         {
@@ -18,9 +19,9 @@ namespace Checkers.AI
         public MoveAction Play(Game game)
         {
             var tree = BuildActionTree(game);
-            Minimax(tree.Root);
-            var max = tree.Root.Branches.Max(vertex => vertex.Value.Score);
-            var topBranches = tree.Root.Branches.Where(vertex => vertex.Value.Score == max).ToList();
+            Minimax(tree.Root, true, m_LevelOfDeepness);
+            // var max = tree.Root.Branches.Max(vertex => vertex.Value.Score);
+            var topBranches = tree.Root.Branches.Where(vertex => vertex.Value.Score == tree.Root.Score).ToList();
             return topBranches[m_Random.Next(0, topBranches.Count)].Key;
         }
 
@@ -33,11 +34,30 @@ namespace Checkers.AI
             }
         }
 
+        private void Minimax(ActionTreeVertex vertex, bool isMax, int level)
+        {
+            if (level > 0)
+            {
+                foreach (var actionTreeVertex in vertex.Branches)
+                {
+                    Minimax(actionTreeVertex.Value, !isMax, level - 1);                    
+                }
+                if (isMax)
+                {
+                    vertex.Score = vertex.Branches.Max(g => g.Value.Score);
+                }
+                else
+                {
+                    vertex.Score = vertex.Branches.Min(g => g.Value.Score);
+                }
+            }
+        }
+
         private ActionTree BuildActionTree(Game game)
         {
             var tree = new ActionTree(game);
             tree.Root.Score = Evaluation.Evaluate(game.Board, Color);
-            ExpandTree(tree.Root, 2);
+            ExpandTree(tree.Root, m_LevelOfDeepness + 1);
             return tree;
         }        
 

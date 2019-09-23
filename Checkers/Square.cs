@@ -3,7 +3,7 @@
     public class Square
     {
         public bool IsEmpty { get; set; }
-        public Soldier Piece { get; set; }
+        public Piece Piece { get; set; }
 
         public Square()
         {
@@ -11,10 +11,17 @@
             Piece = null;
         }
 
-        public Square(Color color)
+        public Square(Color color, bool isKing)
         {
             IsEmpty = false;
-            Piece = new Soldier(color);
+            if (isKing)
+            {
+                Piece = new King(color);
+            }
+            else
+            {
+                Piece = new Soldier(color);
+            }
         }
     }
 }

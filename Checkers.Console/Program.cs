@@ -37,7 +37,12 @@ namespace Checkers.Console
                     }
 
                     System.Console.WriteLine("Choose move. -1 to back");
-                    var move = int.Parse(System.Console.ReadLine());
+                    var moveString = System.Console.ReadLine();
+                    int move;
+                    while (!int.TryParse(moveString, out move))
+                    {
+                        moveString = System.Console.ReadLine();
+                    }
                     if (move != -1)
                     {
                         game.Play(position, moves[move]);

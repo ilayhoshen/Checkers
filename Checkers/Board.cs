@@ -39,11 +39,11 @@ namespace Checkers
                         {
                             if (row < 3)
                             {
-                                Squares[row, col] = new Square(Color.White);
+                                Squares[row, col] = new Square(Color.White, false);
                             }
                             else
                             {
-                                Squares[row, col] = new Square(Color.Black);
+                                Squares[row, col] = new Square(Color.Black, false);
                             }
                         }
                         else
@@ -86,7 +86,15 @@ namespace Checkers
 
         private void DoStep(Position position, Position step, Color turn)
         {
-            this[step] = this[position];
+            if ((turn == Color.Black && step.Row == 0) || (turn == Color.White && step.Row == Board.ROW_COUNT - 1))
+            {
+                this[step] = new Square(turn, true);
+            }
+            else
+            {
+                this[step] = this[position];
+            }
+
             this[position] = new Square();
             if (Math.Abs(position.Row - step.Row) > 1)
             {

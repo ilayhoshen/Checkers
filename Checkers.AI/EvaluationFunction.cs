@@ -5,27 +5,41 @@ namespace Checkers.AI
 {
     public class EvaluationFunction
     {
-        private int m_RemainingPlayerMultiplier = 5;
+        private int m_RemainingSoldiersMultiplier = 5;
+        private int m_RemainingKingsMultiplier = 7;
         private int m_FreeWigsMultiplier = 1;
         private int m_CornersMultiplier = 2;
 
         public int Evaluate(Board board, Color color)
         {
             var rivalColor = color == Color.Black ? Color.White : Color.Black;
-            var myRemainingPieces = RemainingPieces(board, color);
-            var rivalRemainingPieces = RemainingPieces(board, rivalColor);
+
+            var myRemainingPieces = RemainingSoldiers(board, color);
+            var rivalRemainingPieces = RemainingSoldiers(board, rivalColor);
+
+            var myRemainingKings = RemainingKings(board, color);
+            var rivalRemainingKings = RemainingKings(board, rivalColor);
+
             var myFreeWigs = FreeWigs(board, color);
             var rivalFreeWigs = FreeWigs(board, rivalColor);
+
             var myCorners = Corners(board, color);
             var rivalCorners = Corners(board, rivalColor);
-            return ((myRemainingPieces - rivalRemainingPieces) * m_RemainingPlayerMultiplier) +
+            
+            return ((myRemainingPieces - rivalRemainingPieces) * m_RemainingSoldiersMultiplier) +
+                   ((myRemainingKings - rivalRemainingKings) * m_RemainingSoldiersMultiplier) +
                    ((rivalFreeWigs - myFreeWigs) * m_FreeWigsMultiplier) + 
                    ((myCorners - rivalCorners) * m_CornersMultiplier);
         }
 
-        private int RemainingPieces(Board board, Color color)
+        private int RemainingSoldiers(Board board, Color color)
         {
             return board.Squares.Cast<Square>().Count(s => !s.IsEmpty && s.Piece.Color == color);
+        }
+
+        private int RemainingKings(Board board, Color color)
+        {
+            return board.Squares.Cast<Square>().Count(s => !s.IsEmpty && s.Piece.Color == color && s.Piece is King);
         }
 
         private int Corners(Board board, Color color)
