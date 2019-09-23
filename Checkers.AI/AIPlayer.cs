@@ -10,10 +10,11 @@ namespace Checkers.AI
         public EvaluationFunction Evaluation { get; set; }
         private int m_LevelOfDeepness = 2;
         private Random m_Random = new Random();
-        public AIPlayer(Color color, EvaluationFunction evaluation)
+        public AIPlayer(Color color, EvaluationFunction evaluation, int levelOfDeepness)
         {
             Color = color;
             Evaluation = evaluation;
+            m_LevelOfDeepness = levelOfDeepness;
         }
 
         public MoveAction Play(Game game)
@@ -42,13 +43,17 @@ namespace Checkers.AI
                 {
                     Minimax(actionTreeVertex.Value, !isMax, level - 1);                    
                 }
-                if (isMax)
+
+                if (vertex.Branches.Count > 0)
                 {
-                    vertex.Score = vertex.Branches.Max(g => g.Value.Score);
-                }
-                else
-                {
-                    vertex.Score = vertex.Branches.Min(g => g.Value.Score);
+                    if (isMax)
+                    {
+                        vertex.Score = vertex.Branches.Max(g => g.Value.Score);
+                    }
+                    else
+                    {
+                        vertex.Score = vertex.Branches.Min(g => g.Value.Score);
+                    }
                 }
             }
         }

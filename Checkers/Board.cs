@@ -15,11 +15,15 @@ namespace Checkers
         public Board()
         {
             InitBoard();
+            WhitePieces = 12;
+            BlackPieces = 12;
         }
 
         public Board(Square[,] squares)
         {
             Squares = squares;
+            WhitePieces = Squares.Cast<Square>().Count(s => !s.IsEmpty && s.Piece.Color == Color.White);
+            BlackPieces = Squares.Cast<Square>().Count(s => !s.IsEmpty && s.Piece.Color == Color.Black);
         }
 
         private void InitBoard()
