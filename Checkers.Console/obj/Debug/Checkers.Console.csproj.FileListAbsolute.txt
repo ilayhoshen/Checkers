@@ -1,0 +1,10 @@
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.Console.exe.config
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.Console.exe
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.Console.pdb
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.dll
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.pdb
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\obj\Debug\Checkers.Console.csprojResolveAssemblyReference.cache
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\obj\Debug\Checkers.Console.exe
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\obj\Debug\Checkers.Console.pdb
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.AI.dll
+c:\Users\ilay\documents\visual studio 2015\Projects\Checkers\Checkers.Console\bin\Debug\Checkers.AI.pdb
