@@ -17,62 +17,62 @@ namespace Checkers.Console
             int win = 0;
             var aiPlayer2 = new AIPlayer(Color.White, new EvaluationFunction(), 2);
             int win2 = 0;
-            for (var i = 0; i < 100; i++)
+            for (var gameNumber = 0; gameNumber < 100; gameNumber++)
             {
                 System.Console.ReadLine();
-                int moves = 0;
+                int movesCount = 0;
                 var game = new Game();
-                while (!game.IsOver() && moves < 150)
+                while (!game.IsOver() && movesCount < 80)
                 {
-                    //System.Console.Clear();
-                    //PrintBoard(game.Board);
+                    System.Console.Clear();
+                    PrintBoard(game.Board);
 
-                    //System.Console.WriteLine();
+                    System.Console.WriteLine();
 
                     if (game.Turn == Color.White)
                     {
                         //System.Console.WriteLine("Click enter for AIPlayer to play");
-                        var move = aiPlayer2.Play(game);
+                        //var move = aiPlayer2.Play(game);
                         //System.Console.WriteLine("AI's move:");
                         //PrintMove(move.PositionToMove, move.Move);
-                        game.Play(move.PositionToMove, move.Move);
+                        //game.Play(move.PositionToMove, move.Move);
                         // System.Console.ReadLine();
-                        //System.Console.WriteLine(game.Turn + "'s turn. Please select position to move. e.g. '5,2'");
-                        //var piecePosition = System.Console.ReadLine().Split(',');
-                        //var position = new Position(int.Parse(piecePosition[0]), int.Parse(piecePosition[1]));
-                        //var moves = game.Board.PossibleMoves(position);
+                        System.Console.WriteLine(game.Turn + "'s turn. Please select position to move. e.g. '5,2'");
+                        var piecePosition = System.Console.ReadLine().Split(',');
+                        var position = new Position(int.Parse(piecePosition[0]), int.Parse(piecePosition[1]));
+                        var moves = game.Board.PossibleMoves(position);
 
 
-                        //System.Console.WriteLine("Possible moves: ");
-                        //for (var i = 0; i < moves.Count; i++)
-                        //{
-                        //    System.Console.Write(i + ". ");
-                        //    PrintMove(position, moves[i]);
-                        //}
+                        System.Console.WriteLine("Possible moves: ");
+                        for (var i = 0; i < moves.Count; i++)
+                        {
+                            System.Console.Write(i + ". ");
+                            PrintMove(position, moves[i]);
+                        }
 
-                        //System.Console.WriteLine("Choose move. -1 to back");
-                        //var moveString = System.Console.ReadLine();
-                        //int move;
-                        //while (!int.TryParse(moveString, out move))
-                        //{
-                        //    moveString = System.Console.ReadLine();
-                        //}
-                        //if (move != -1)
-                        //{
-                        //    game.Play(position, moves[move]);
-                        //}
+                        System.Console.WriteLine("Choose move. -1 to back");
+                        var moveString = System.Console.ReadLine();
+                        int move;
+                        while (!int.TryParse(moveString, out move))
+                        {
+                            moveString = System.Console.ReadLine();
+                        }
+                        if (move != -1)
+                        {
+                            game.Play(position, moves[move]);
+                        }
                     }
                     else
                     {
-                        //System.Console.WriteLine("Click enter for AIPlayer to play");
+                        System.Console.WriteLine("Click enter for AIPlayer to play");
                         var move = aiPlayer.Play(game);
-                        //System.Console.WriteLine("AI's move:");
-                        //PrintMove(move.PositionToMove, move.Move);
+                        System.Console.WriteLine("AI's move:");
+                        PrintMove(move.PositionToMove, move.Move);
                         game.Play(move.PositionToMove, move.Move);
-                        // System.Console.ReadLine();
+                        System.Console.ReadLine();
                     }
 
-                    moves++;
+                    movesCount++;
                     // Thread.Sleep(2000);
 
                 }
@@ -118,26 +118,29 @@ namespace Checkers.Console
                     }
                     else if (square.Piece.Color == Color.White)
                     {
+                        System.Console.ForegroundColor = ConsoleColor.Green;
                         if (square.Piece is King)
                         {
-                            System.Console.Write(" O ");
+                            System.Console.Write(" K ");
                         }
                         else
                         {
-                            System.Console.Write(" o ");
+                            System.Console.Write(" O ");
                         }
                     }
                     else
                     {
+                        System.Console.ForegroundColor = ConsoleColor.Red;
                         if (square.Piece is King)
                         {
-                            System.Console.Write(" X ");
+                            System.Console.Write(" K ");
                         }
                         else
                         {
-                            System.Console.Write(" x ");
+                            System.Console.Write(" O ");
                         }
                     }
+                    System.Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 System.Console.WriteLine();

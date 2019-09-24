@@ -5,10 +5,10 @@ namespace Checkers.AI
 {
     public class EvaluationFunction
     {
-        private int m_RemainingSoldiersMultiplier = 5;
-        private int m_RemainingKingsMultiplier = 7;
-        private int m_FreeWigsMultiplier = 1;
-        private int m_CornersMultiplier = 2;
+        private int m_RemainingSoldiersMultiplier = 50;
+        private int m_RemainingKingsMultiplier = 120;
+        private int m_FreeWigsMultiplier = 10;
+        private int m_CornersMultiplier = 10;
 
         public int Evaluate(Board board, Color color)
         {
@@ -27,7 +27,7 @@ namespace Checkers.AI
             var rivalCorners = Corners(board, rivalColor);
             
             return ((myRemainingPieces - rivalRemainingPieces) * m_RemainingSoldiersMultiplier) +
-                   ((myRemainingKings - rivalRemainingKings) * m_RemainingSoldiersMultiplier) +
+                   ((myRemainingKings - rivalRemainingKings) * m_RemainingKingsMultiplier) +
                    ((rivalFreeWigs - myFreeWigs) * m_FreeWigsMultiplier) + 
                    ((myCorners - rivalCorners) * m_CornersMultiplier);
         }
