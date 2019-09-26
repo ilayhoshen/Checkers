@@ -13,13 +13,13 @@ namespace Checkers.Console
     {
         static void Main(string[] args)
         {            
-            var aiPlayer = new AIPlayer(Color.Black, new EvaluationFunction(), 2);
+            var aiPlayer = new AIPlayer(Color.Black, new EvaluationFunction(), 4);
             int win = 0;
             var aiPlayer2 = new AIPlayer(Color.White, new EvaluationFunction(), 2);
             int win2 = 0;
             for (var gameNumber = 0; gameNumber < 100; gameNumber++)
             {
-                System.Console.ReadLine();
+                //System.Console.ReadLine();
                 int movesCount = 0;
                 var game = new Game();
                 while (!game.IsOver() && movesCount < 80)
@@ -65,6 +65,7 @@ namespace Checkers.Console
                     else
                     {
                         System.Console.WriteLine("Click enter for AIPlayer to play");
+                        System.Console.ReadLine();
                         var move = aiPlayer.Play(game);
                         System.Console.WriteLine("AI's move:");
                         PrintMove(move.PositionToMove, move.Move);
